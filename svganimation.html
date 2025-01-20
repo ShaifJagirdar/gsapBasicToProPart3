@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG slick animation</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html , body{
+            height: 100%;
+            width: 100%;
+            box-sizing: border-box;
+            background-color: black;
+        }
+        .svgsection{
+            width: 100%;
+            height: 100%;
+        }
+        svg{
+            background-color: red;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded",function(){
+
+        var path = "M 10 100 Q 650 100 1390 100";
+        var orgpath = "M 10 100 Q 650 100 1390 100";
+
+        var svgselec = document.querySelector(".svgsection svg");
+        svgselec.addEventListener("mousemove", function(dets){
+            path = `M 10 100 Q ${dets.x} ${dets.y} 1390 100`;
+            gsap.to("svg path",{
+                attr: {d:path},
+                duration: 0.3,
+                ease: "power3.out"
+            })
+        });
+        svgselec.addEventListener("mouseleave", function(){
+            gsap.to("svg path",{
+                attr: {d:orgpath},
+                duration: 1.5,
+                ease: "elastic.out(1,0.2)"
+            })
+        });
+
+        })
+        
+
+    </script>
+</head>
+<body>
+    <div class="svgsection">
+        <svg width="1430" height="200">
+            <path d="M 10 100 Q 650 100 1390 100" stroke="white" fill="transparent"></path>
+        </svg>
+    </div>
+</body>
+</html>
